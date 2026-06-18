@@ -10,7 +10,7 @@ import os
 
 app = FastAPI()
 
-engine = create_engine(os.getenv(db_connection))
+engine = create_engine(os.getenv("db_connection"))
 Base.metadata.create_all(engine)
 
 
