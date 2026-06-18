@@ -15,5 +15,5 @@ class EventCreate(BaseModel):
     endDate: datetime
     adminid: str
 
-class GetEvent:
+class GetEvent(BaseModel):
     adminid:str
