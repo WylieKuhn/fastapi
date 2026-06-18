@@ -8,6 +8,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 import os
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import HTTPException
 
 app = FastAPI()
 from fastapi.middleware.cors import CORSMiddleware
@@ -58,5 +59,6 @@ async def signuphandler(event: EventCreate):
             session.commit()
 
         return {"status": "success"}
-    except:
-        return {"Error": "An Error Occured"}
+    except Exception as e:
+        print("ERROR:", e)
+        raise HTTPException(status_code=500, detail=str(e))
