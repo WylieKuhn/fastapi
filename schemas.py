@@ -14,3 +14,6 @@ class EventCreate(BaseModel):
     startDate: datetime
     endDate: datetime
     adminid: str
+
+class GetEvent:
+    adminid:str

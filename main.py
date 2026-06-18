@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query
 import firebase_admin
 from firebase_admin import credentials
 from models import Event, Base
-from schemas import EventCreate
+from schemas import EventCreate, GetEvent
 from sqlalchemy import create_engine
 from datetime import datetime
 from sqlalchemy.orm import Session
@@ -63,9 +63,26 @@ async def signuphandler(event: EventCreate):
         print("ERROR:", e)
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.get("/getevents")
-def get_events(adminID: str):
+@app.post("/getevents")
+def get_events(adminID: GetEvent):
     with Session(engine) as session:
         events = session.query(Event).filter(
-            Event.adminid == adminID
-        )
+            Event.adminid == adminID.adminid
+        ).all()
+
+        return [
+            {
+                "id": e.id,
+                "name": e.name,
+                "venue": e.venue,
+                "address": e.address,
+                "city": e.city,
+                "state": e.state,
+                "postCode": e.post_code,
+                "country": e.country,
+                "maxAttendees": e.max_attendees,
+                "startDate": e.start_date,
+                "endDate": e.end_date,
+            }
+            for e in events
+        ]
