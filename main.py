@@ -1,11 +1,62 @@
 from fastapi import FastAPI
+import firebase_admin
+from firebase_admin import credentials
+from functions.signup import signUp
+from sqlalchemy import create_async_engine
+from DONOTPUSH.db_info import db_connection
+from functions.create_event import create_event
+from models import Event, Base
+from schemas import EventCreate
+from DONOTPUSH.db_info import db_connection
+from sqlalchemy import create_engine
+from datetime import datetime
+from sqlalchemy.orm import Session
 
 app = FastAPI()
+
+engine = create_engine(db_connection)
+Base.metadata.create_all(engine)
+
 
 @app.get("/")
 async def root():
     return {"greeting": "Hello, World!", "message": "Welcome to FastAPI!"}
 
 @app.get("/status")
-async def root():
+async def status():
     return {"status": "Rockin", "message": "Hamlin 4 Champ"}
+
+@app.post("/signup")
+async def signuphandler():
+    try:
+        signUp()
+    except:
+        return {"error": "Something went wrong"}
+
+    return {"status": "Rockin", "message": "Hamlin 4 Champ"}
+
+@app.post("/createevent")
+async def signuphandler(event: EventCreate):
+    try:
+        db_event = Event(
+            name=event.name,
+            venue=event.venue,
+            address=event.address,
+            city=event.city,
+            state=event.state,
+            post_code=event.postCode,
+            country=event.country,
+            max_attendees=event.maxAttendees,
+            start_date=event.startDate,
+            end_date=event.endDate,
+            uid=event.adminID,
+            created_at=datetime.now()
+        )
+
+        with Session(engine) as session:
+            session.add(db_event)
+            session.commit()
+
+        return {"status": "success"}
+    except:
+        return {"Error": "An Error Occured"}
