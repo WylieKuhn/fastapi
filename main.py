@@ -3,18 +3,17 @@ import firebase_admin
 from firebase_admin import credentials
 from functions.signup import signUp
 from sqlalchemy import create_async_engine
-from DONOTPUSH.db_info import db_connection
 from functions.create_event import create_event
 from models import Event, Base
 from schemas import EventCreate
-from DONOTPUSH.db_info import db_connection
 from sqlalchemy import create_engine
 from datetime import datetime
 from sqlalchemy.orm import Session
+import os
 
 app = FastAPI()
 
-engine = create_engine(db_connection)
+engine = create_engine(os.getenv(db_connection))
 Base.metadata.create_all(engine)
 
 
