@@ -25,15 +25,6 @@ async def root():
 async def status():
     return {"status": "Rockin", "message": "Hamlin 4 Champ"}
 
-@app.post("/signup")
-async def signuphandler():
-    try:
-        signUp()
-    except:
-        return {"error": "Something went wrong"}
-
-    return {"status": "Rockin", "message": "Hamlin 4 Champ"}
-
 @app.post("/createevent")
 async def signuphandler(event: EventCreate):
     try:
