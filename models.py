@@ -20,7 +20,7 @@ class Event(Base):
     post_code: Mapped[str]
     country: Mapped[str]
     max_attendees: Mapped[int]
-    start_date: Mapped[datetime] = mapped_column(DateTime)
-    end_date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    start_date = mapped_column(DateTime(timezone=True))
+    end_date = mapped_column(DateTime(timezone=True))
     adminid: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(DateTime)
