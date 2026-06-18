@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import firebase_admin
 from firebase_admin import credentials
-from sqlalchemy import create_async_engine
 from models import Event, Base
 from schemas import EventCreate
 from sqlalchemy import create_engine
