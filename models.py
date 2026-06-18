@@ -22,5 +22,5 @@ class Event(Base):
     max_attendees: Mapped[int]
     start_date: Mapped[datetime] = mapped_column(DateTime)
     end_date: Mapped[datetime] = mapped_column(DateTime)
-    uid: Mapped[str]
+    adminID: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(DateTime)
