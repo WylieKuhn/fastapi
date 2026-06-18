@@ -13,4 +13,4 @@ class EventCreate(BaseModel):
     maxAttendees: int
     startDate: datetime
     endDate: datetime
-    adminID: str
+    adminid: str
