@@ -50,7 +50,7 @@ async def signuphandler(event: EventCreate):
             max_attendees=event.maxAttendees,
             start_date=event.startDate,
             end_date=event.endDate,
-            adminid=event.adminID,
+            adminid=event.adminid,
             created_at=datetime.now()
         )
 
