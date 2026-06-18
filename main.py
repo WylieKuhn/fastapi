@@ -81,8 +81,8 @@ def get_events(adminID: GetEvent):
                 "postCode": e.post_code,
                 "country": e.country,
                 "maxAttendees": e.max_attendees,
-                "startDate": e.start_date,
-                "endDate": e.end_date,
+                "startDate": e.start_date.isoformat() if e.start_date else None,
+                "endDate": e.end_date.isoformat() if e.end_date else None,
             }
             for e in events
         ]
