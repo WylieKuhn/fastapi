@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 import firebase_admin
 from firebase_admin import credentials
 from models import Event, Base
@@ -62,3 +62,10 @@ async def signuphandler(event: EventCreate):
     except Exception as e:
         print("ERROR:", e)
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/getevents")
+def get_events(adminID: str):
+    with Session(engine) as session:
+        events = session.query(Event).filter(
+            Event.adminid == adminID
+        )
