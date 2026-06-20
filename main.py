@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query
 import firebase_admin
 from firebase_admin import credentials
 from models import Event, Base
-from schemas import EventCreate, GetEvent
+from schemas import EventCreate, GetEvent, GetSingleEvent
 from sqlalchemy import create_engine
 from datetime import datetime
 from sqlalchemy.orm import Session
@@ -86,3 +86,12 @@ def get_events(adminID: GetEvent):
             }
             for e in events
         ]
+    
+@app.post("getsingleevent")
+def get_singleEvent(eventid: GetSingleEvent):
+    with Session(engine) as session:
+        event = session.query(Event).filter(
+            Event.id == eventid.id
+        ).first()
+
+        return event

@@ -17,3 +17,6 @@ class EventCreate(BaseModel):
 
 class GetEvent(BaseModel):
     adminid:str
+
+class GetSingleEvent(BaseModel):
+    id:int
