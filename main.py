@@ -87,7 +87,7 @@ def get_events(adminID: GetEvent):
             for e in events
         ]
     
-@app.post("getsingleevent")
+@app.post("/getsingleevent")
 def get_singleEvent(eventid: GetSingleEvent):
     with Session(engine) as session:
         event = session.query(Event).filter(
